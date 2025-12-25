@@ -15,6 +15,9 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
     
     steps:
     - name: Checkout code
@@ -25,24 +28,29 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
 
-    - name: Install dependencies
+    - name: Create virtual environment and install dependencies
       run: |
-        cd backend
+        python -m venv antenv
+        source antenv/bin/activate
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run tests (if any)
+    - name: Zip artifact for deployment
       run: |
-        cd backend
-        # Add your test commands here
-        # python -m pytest tests/
+        zip -r ../release.zip . -x "venv/*" -x ".env" -x "__pycache__/*" -x "*.pyc" -x "temp_files/*"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-app
+        path: release.zip
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ./backend
+        package: release.zip
 
     - name: Deployment Summary
       run: |
