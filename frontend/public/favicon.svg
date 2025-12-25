@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Document shape -->
+  <path d="M12 4h28l12 12v40a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="url(#grad1)"/>
+  <!-- Folded corner -->
+  <path d="M40 4v12h12" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M40 4l12 12H44a4 4 0 0 1-4-4V4z" fill="#b91c1c"/>
+  <!-- PDF text -->
+  <text x="32" y="42" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">PDF</text>
+  <!-- Universe dots/stars -->
+  <circle cx="18" cy="24" r="2" fill="#fca5a5"/>
+  <circle cx="46" cy="32" r="1.5" fill="#fca5a5"/>
+  <circle cx="22" cy="50" r="1.5" fill="#fca5a5"/>
+</svg>
