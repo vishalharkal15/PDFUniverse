@@ -1,162 +1,152 @@
-# iHitPDF - Online PDF Tools
+# PDFUniverse - Online PDF Tools SaaS
 
-A production-ready web application for PDF manipulation, similar to iLovePDF.
+A production-ready SaaS web application for PDF manipulation, conversion, and editing.
 
-## Features
+🌐 **Live Demo:** [PDFUniverse](https://pdfuniverse.azurestaticapps.net)
 
+## ✨ Features
+
+### PDF Tools
 - **Merge PDF** - Combine multiple PDFs into one
 - **Split PDF** - Extract pages or split into multiple files
 - **Compress PDF** - Reduce PDF file size
 - **Rotate PDF** - Rotate pages 90°, 180°, 270°
-- **Reorder Pages** - Rearrange PDF pages
-- **Download** - Get your processed files instantly
+- **Reorder Pages** - Drag & drop to rearrange PDF pages
+- **PDF Editor** - Add text, annotations, and more
 
-## Tech Stack
+### Conversion Tools
+- **PDF to Word** - Convert PDF to editable Word documents
+- **PDF to Excel** - Extract tables from PDF to spreadsheets
+- **PDF to JPG** - Convert PDF pages to images
+- **Word to PDF** - Convert Word documents to PDF
+- **Excel to PDF** - Convert spreadsheets to PDF
+- **JPG to PDF** - Convert images to PDF
+
+### Key Features
+- 🚀 Fast processing with instant downloads
+- 🔒 Privacy-first - Files auto-deleted after 30 minutes
+- 📱 Fully responsive design
+- 🎨 Modern, intuitive UI
+- 🔍 SEO optimized
+
+## 🛠️ Tech Stack
 
 ### Frontend
 - React 18 with Vite
-- Tailwind CSS
+- Tailwind CSS for styling
+- React Router for navigation
 - Drag & Drop file upload
-- Progress indicators
+- react-helmet-async for SEO
 
 ### Backend
 - Python FastAPI
 - PyPDF2, pikepdf for PDF processing
-- Azure Blob Storage
-- Background task processing
+- pdf2docx, python-docx for Word conversion
+- tabula-py, openpyxl for Excel operations
+- Pillow for image processing
+- Azure Blob Storage / Local Storage
 
-### Cloud & Deployment
+### Deployment
 - Azure App Service (Backend)
 - Azure Static Web Apps (Frontend)
 - GitHub Actions CI/CD
-- No Docker required
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-ihitpdf/
-├── backend/          # FastAPI application
+PDFUniverse/
+├── backend/                 # FastAPI application
 │   ├── app/
-│   │   ├── api/routes/
-│   │   ├── services/
-│   │   ├── storage/
-│   │   ├── core/
-│   │   └── main.py
+│   │   ├── api/routes/      # API endpoints
+│   │   ├── services/        # Business logic
+│   │   ├── storage/         # File storage handlers
+│   │   ├── core/            # Configuration
+│   │   └── main.py          # App entry point
 │   └── requirements.txt
-├── frontend/         # React + Vite application
+├── frontend/                # React + Vite application
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
+│   │   ├── components/      # Reusable UI components
+│   │   ├── pages/           # Page components
+│   │   ├── services/        # API services
 │   │   └── App.jsx
 │   └── package.json
-└── .github/workflows/
+└── .github/workflows/       # CI/CD pipelines
 ```
 
-## Setup Instructions
+## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.10+
 - Node.js 18+
-- Azure account
-- GitHub account
+- Java Runtime (for tabula-py)
 
-### Local Development
-
-#### Backend Setup
+### Backend Setup
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-
-# Create .env file with Azure credentials
 cp .env.example .env
-
-# Run development server
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn app.main:app --reload --port 8000
 ```
 
-#### Frontend Setup
+### Frontend Setup
 ```bash
 cd frontend
 npm install
-
-# Create .env file
 cp .env.example .env
-
-# Run development server
 npm run dev
 ```
 
-### Azure Configuration
+Access the app at http://localhost:5173
 
-#### 1. Azure Blob Storage
-- Create a Storage Account
-- Create a container named `pdf-files`
-- Get connection string from Access Keys
-- Add to backend `.env`:
-  ```
-  AZURE_STORAGE_CONNECTION_STRING=your_connection_string
-  AZURE_STORAGE_CONTAINER_NAME=pdf-files
-  ```
+## 🌐 API Endpoints
 
-#### 2. Azure App Service (Backend)
-- Create Python 3.10+ App Service
-- Set startup command: `uvicorn app.main:app --host 0.0.0.0 --port 8000`
-- Add environment variables in Configuration > Application Settings
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/merge` | POST | Merge multiple PDFs |
+| `/api/split` | POST | Split PDF by page ranges |
+| `/api/compress` | POST | Compress PDF file size |
+| `/api/rotate` | POST | Rotate PDF pages |
+| `/api/reorder` | POST | Reorder PDF pages |
+| `/api/pdf-to-word` | POST | Convert PDF to Word |
+| `/api/pdf-to-excel` | POST | Convert PDF to Excel |
+| `/api/pdf-to-jpg` | POST | Convert PDF to images |
+| `/api/word-to-pdf` | POST | Convert Word to PDF |
+| `/api/excel-to-pdf` | POST | Convert Excel to PDF |
+| `/api/jpg-to-pdf` | POST | Convert images to PDF |
+| `/api/health` | GET | Health check |
 
-#### 3. Azure Static Web Apps (Frontend)
-- Create Static Web App
-- Connect to GitHub repository
-- Build configuration:
-  - App location: `/frontend`
-  - Output location: `dist`
+## ☁️ Azure Deployment
 
-### GitHub Actions Deployment
+### Backend (Azure App Service)
+1. Create Python 3.10+ App Service
+2. Set startup command: `uvicorn app.main:app --host 0.0.0.0 --port 8000`
+3. Configure environment variables
 
-The project includes automated CI/CD workflows:
-- `backend-deploy.yml` - Deploys FastAPI to Azure App Service
-- `frontend-deploy.yml` - Deploys React app to Azure Static Web Apps
+### Frontend (Azure Static Web Apps)
+1. Create Static Web App linked to GitHub
+2. App location: `/frontend`, Output: `dist`
+3. Set `VITE_API_BASE_URL` to backend URL
 
-Configure these secrets in GitHub:
-- `AZURE_WEBAPP_PUBLISH_PROFILE` (Backend)
-- `AZURE_STATIC_WEB_APPS_API_TOKEN` (Frontend)
+## 🔒 Security & Privacy
 
-## Environment Variables
+- ✅ Files automatically deleted after 30 minutes
+- ✅ Random filename generation
+- ✅ No user data retention
+- ✅ HTTPS only in production
+- ✅ Azure Blob Storage encryption at rest
 
-### Backend (.env)
-```
-AZURE_STORAGE_CONNECTION_STRING=your_connection_string
-AZURE_STORAGE_CONTAINER_NAME=pdf-files
-MAX_FILE_SIZE_MB=50
-FILE_RETENTION_MINUTES=30
-CORS_ORIGINS=https://your-frontend-url.azurestaticapps.net
-```
+## 👨‍💻 Author
 
-### Frontend (.env)
-```
-VITE_API_BASE_URL=https://your-backend.azurewebsites.net
-```
+**Vishal Harkal**
+- Website: [vishalharkal.me](https://vishalharkal.me/)
+- GitHub: [@vishalharkal15](https://github.com/vishalharkal15)
 
-## API Endpoints
+## 📄 License
 
-- `POST /api/merge` - Merge multiple PDFs
-- `POST /api/split` - Split PDF by page ranges
-- `POST /api/compress` - Compress PDF file size
-- `POST /api/rotate` - Rotate PDF pages
-- `POST /api/reorder` - Reorder PDF pages
-- `GET /api/health` - Health check
+MIT License - See [LICENSE](LICENSE) file for details
 
-## Security & Privacy
+---
 
-- Files are automatically deleted after 30 minutes
-- Random filename generation
-- No user data retention
-- Azure Blob Storage encryption at rest
-- HTTPS only in production
-
-## License
-
-MIT License - See LICENSE file for details
-# PDFUniverse
+⭐ Star this repo if you find it useful!
